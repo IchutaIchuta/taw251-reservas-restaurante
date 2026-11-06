@@ -1,111 +1,403 @@
+/* Estilos base. Los estilos del layout y las pantallas se agregan en los
+   pasos siguientes. */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --color-texto: #1f2328;
+  --color-suave: #656d76;
+  --color-fondo: #f6f7f9;
+  --color-superficie: #ffffff;
+  --color-borde: #d8dee4;
+  --color-primario: #b4441c;
+  --color-error: #c62828;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-texto);
+  background: var(--color-fondo);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+a {
+  color: var(--color-primario);
+}
+
+/* ---------------------------------------------------------------------
+   Componentes compartidos por todas las pantallas (Mesas, Reservas...)
+   --------------------------------------------------------------------- */
+
+.pagina-encabezado {
   display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
+.pagina-encabezado h1 {
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+/* Botones */
+.boton {
+  min-height: 40px;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.boton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.boton-primario {
+  background: var(--color-primario);
+  color: #fff;
+}
+
+.boton-primario:hover:not(:disabled) {
+  background: #963816;
+}
+
+.boton-secundario {
+  background: var(--color-superficie);
+  border-color: var(--color-borde);
+  color: var(--color-texto);
+}
+
+.boton-secundario:hover:not(:disabled) {
+  background: var(--color-fondo);
+}
+
+.boton-peligro {
+  background: var(--color-superficie);
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.boton-peligro:hover:not(:disabled) {
+  background: #fdecea;
+}
+
+/* Tabla */
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabla th,
+.tabla td {
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.tabla th {
+  background: var(--color-fondo);
+  font-weight: 600;
+}
+
+.tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Textos largos (ej. emails) que pueden no caber en celular. */
+.celda-texto-largo {
+  overflow-wrap: anywhere;
+}
+
+/* Filtros sobre las listas (ej. fecha y estado en Reservas) */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.filtros .campo {
+  margin-bottom: 0;
+}
+
+.filtros-botones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Etiqueta de color segun el estado de la reserva */
+.estado {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.estado-pendiente {
+  background: #fff4e0;
+  color: #8a5300;
+}
+
+.estado-confirmada {
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+.estado-completada {
+  background: #e3f0fb;
+  color: #0b4f8a;
+}
+
+.estado-cancelada {
+  background: #eceff1;
+  color: #546e7a;
+}
+
+/* Nombre del cliente con su telefono debajo */
+.celda-cliente {
+  display: flex;
+  flex-direction: column;
+}
+
+.celda-cliente small,
+.texto-suave {
+  color: var(--color-suave);
+}
+
+/* Buscador de las listas */
+.buscador {
+  width: 100%;
+  max-width: 360px;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 6px;
+  font: inherit;
+  background: var(--color-superficie);
+}
+
+/* Texto solo para lectores de pantalla (oculto a la vista). */
+.solo-lector {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Boton con aspecto de enlace */
+.boton-enlace {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-primario);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Formularios */
+.formulario-fila {
+  display: flex;
+  gap: 1rem;
+}
+
+.formulario-fila > .campo {
+  flex: 1;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.campo label {
+  font-weight: 600;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 6px;
+  font: inherit;
+  background: var(--color-superficie);
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+.campo select:disabled {
+  color: var(--color-suave);
+  background: var(--color-fondo);
+}
+
+.campo-con-error input,
+.campo-con-error select,
+.campo-con-error textarea {
+  border-color: var(--color-error);
+}
+
+.input-password {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-password input {
+  flex: 1;
+  min-width: 0;
+}
+
+.campo-error {
+  color: var(--color-error);
+  font-size: 0.875rem;
+}
+
+.formulario-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Avisos */
+.aviso {
+  padding: 0.65rem 0.9rem;
+  border-radius: 6px;
+  margin: 0 0 1rem;
+}
+
+.aviso ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.aviso-exito {
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+.aviso-error {
+  background: #fdecea;
+  color: var(--color-error);
+}
+
+/* ---------------------------------------------------------------------
+   Responsive (celular)
+   --------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  /* Tablas como tarjetas: cada fila es una tarjeta y cada celda muestra
+     su titulo con data-label (ej. <td data-label="Capacidad">). */
+  .tabla,
+  .tabla tbody,
+  .tabla tr,
+  .tabla td {
+    display: block;
+    width: 100%;
+  }
+
+  .tabla {
+    border: none;
+    background: none;
+  }
+
+  .tabla thead {
+    display: none;
+  }
+
+  .tabla tr {
+    margin-bottom: 0.75rem;
+    padding: 0.25rem 0.9rem;
+    background: var(--color-superficie);
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+  }
+
+  .tabla td,
+  .tabla tbody tr:last-child td {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed var(--color-borde);
+  }
+
+  .tabla td::before {
+    flex-shrink: 0;
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--color-suave);
+  }
+
+  .tabla td.celda-acciones,
+  .tabla tbody tr:last-child td.celda-acciones {
+    display: block;
+    padding: 0.75rem 0;
+    border-bottom: none;
+  }
+
+  .tabla td.celda-acciones::before {
+    content: none;
+  }
+
+  /* Botones grandes y faciles de tocar. */
+  .tabla-acciones .boton,
+  .formulario-acciones .boton {
+    flex: 1;
+    min-height: 44px;
+  }
+
+  /* En la tarjeta, el cliente y su telefono van alineados a la derecha. */
+  .celda-cliente {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  /* Filtros a todo el ancho. */
+  .filtros .campo,
+  .filtros-botones {
+    flex: 1 1 100%;
+  }
+
+  .filtros-botones .boton {
+    flex: 1;
+  }
+
+  /* Campos del formulario uno debajo del otro. */
+  .formulario-fila {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .modal {
+    padding: 1.25rem;
+  }
 }
